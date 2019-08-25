@@ -1,0 +1,57 @@
+<!-- SLIDE BANNER -->
+<section id="slide" class="slider " >
+  <owl-carousel-o class=" " *ngIf="Slider" [options]="customOptions1"  (dragging)="isDragging = $event.dragging">
+
+    <ng-container  *ngFor="let slide of Slider" >
+      <ng-template *ngIf="1" carouselSlide [id]="slide.maPhim" >
+        <a [owlRouterLink]="['/chi-tiet-phim/:id']" [stopLink]="isDragging">
+            <img  [src]="slide.banner" alt="">  
+        </a>
+        <!-- <img [owlRouterLink]="['/chi-tiet-phim/:id']" [stopLink]="isDragging"  [src]="slide.banner" alt=""> -->
+        <!-- <button class="play-button">
+          <i class="fa fa-play"></i>
+        </button> -->
+        </ng-template>
+    </ng-container>
+
+  </owl-carousel-o>
+</section>
+<!-- SLIDE FILM DANG CHIEU & SAP CHIEU -->
+
+<!-- BUTTON CHUYEN PHIM -->
+<div class="text-center pt-2">
+  <button class="btn btn-success mr-2" (click)="show()">Phim Đang Chiếu</button>
+  <button class="btn btn-primary" (click)="hide()">Phim Sắp Chiếu</button>
+</div>
+
+
+
+<div class="container">
+  <!-- PHIM DANG CHIEU -->
+  <div class="DangChieu" *ngIf="phimStatus;else sapChieu">
+    <owl-carousel-o class=" container sliderPhim" [options]="customOptions" *ngIf="phimDangChieu">
+
+      <ng-container *ngFor="let phim of phimDangChieu">
+        <ng-template carouselSlide [id]="phim.maPhim">
+          <app-item-phim [phim]="phim"></app-item-phim>
+        </ng-template>
+      </ng-container>
+
+    </owl-carousel-o>
+  </div>
+  <!-- PHIM SAP CHIEU -->
+  <ng-template #sapChieu>
+    <div class="SapChieu">
+      <owl-carousel-o class=" container sliderPhim " [options]="customOptions" *ngIf="phimSapChieu">
+
+        <ng-container *ngFor="let phim of phimSapChieu">
+          <ng-template carouselSlide [id]="phim.maPhim">
+            <app-item-phim [phim]="phim">
+            </app-item-phim>
+          </ng-template>
+        </ng-container>
+
+      </owl-carousel-o>
+    </div>
+  </ng-template>
+</div>
